@@ -2,21 +2,25 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dataFetch,
+  dataFetchTommorow,
   addInputValue,
   inputValue,
 } from "../features/Test/TestSlice";
+
 export const Input = () => {
   const dispatch = useDispatch();
   const value = useSelector(inputValue);
+  const onClickListener = () => {
+    dispatch(dataFetch(value));
+    dispatch(dataFetchTommorow(value));
+  };
   return (
     <div>
       <StyledInput
         placeholder="Enter a city to search"
         onChange={(e) => dispatch(addInputValue(e.target.value))}
       />
-      <StyledButton onClick={() => dispatch(dataFetch(value))}>
-        Search
-      </StyledButton>
+      <StyledButton onClick={onClickListener}>Search</StyledButton>
     </div>
   );
 };
